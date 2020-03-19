@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Registration</title>
+	<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+</head>
+<body>
+	<form method="post">
+		{% csrf_token %}
+		<center>
+			{% if messages %}
+			  	<ul class="messages">
+				    {% for message in messages %}
+				      <li class="{{ message.tags }}">{{ message }}</li>
+				    {% endfor %}
+			    </ul>
+			{% endif %}
+			<h2>User Registration Form</h2><br/>
+			<b>First Name*: </b><input type="text" name="first_name" required><br/>
+			<b>Last Name: </b><input type="text" name="last_name"><br/>
+			<b>Email*: </b><input type="email" name="email" required><br/>
+			<b>Password*: </b><input type="password" name="password" required><br/>
+			<b>Confirm Password*: </b><input type="password" name="confirm_password" required><br/>
+			<input type="text" name="ip_address" hidden="true" id="ipaddress">
+			<input type="submit" name="Registration" value="Submit">
+		</center>
+	</form>
+</body>
+<script> 
+        $.getJSON("https://api.ipify.org?format=json", 
+                                          function(data) { 
+  
+            // Setting text of element P with id gfg 
+            $("#ipaddress").val(data.ip); 
+        }) 
+    </script> 
+</html>
