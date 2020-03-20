@@ -7,6 +7,7 @@ from datetime import date
 import urllib
 import json
 from django.conf import settings
+from django.contrib.auth.hashers import make_password
 # Create your views here.
 
 def index(request):
@@ -45,7 +46,7 @@ def index(request):
 			registered_count_three = False
 			date_today = date.today()
 			ip_address_record = list(UserDetail.objects.filter(ip_address=ip_address, date_created=date_today))
-			if len(ip_address_record)>3 and not result['success']:
+			if len(ip_address_record)>2 and not result['success']:
 				registered_count_three = True
 				data={"first_name": first_name, "last_name": last_name,
 				"email": email, "password": password, "confirm_password": confirm_password}
@@ -54,7 +55,7 @@ def index(request):
 					})
 			
 			UserDetail.objects.get_or_create(first_name=first_name, last_name=last_name,
-				email=email, password=password, ip_address=ip_address, date_created=date_today)
+				email=email, password=make_password(password), ip_address=ip_address, date_created=date_today)
 			messages.success(request, "User with email {} registered sucessfully.".format(email))
 		except Exception as e:
 			raise e

@@ -8,3 +8,6 @@ class UserDetail(models.Model):
 	password = models.CharField(max_length=30)
 	ip_address = models.TextField()
 	date_created = models.DateField() #YYYY-MM-DD format
+
+	def __str__(self):
+		return self.email

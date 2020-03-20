@@ -24,13 +24,22 @@
 				  </div>
 				{% endfor %}
 			{% endif %}
-			<h2>User Registration Form</h2><br/><br>
-			<b>First Name*: </b><input type="text" name="first_name" required value="{{data.first_name}}"><br/><br>
-			<b>Last Name: </b><input type="text" name="last_name" value="{{data.last_name}}"><br/><br>
-			<b>Email*: </b><input type="email" name="email" required value="{{data.email}}"><br/><br>
-			<b>Password*: </b><input type="password" name="password" required value="{{data.password}}"><br/><br>
-			<b>Confirm Password*: </b><input type="password" name="confirm_password" required 
-			value="{{data.confirm_password}}"><br/><br>
+			<h2><u>USER REGISTRATION FORM</u></h2><br/><br>
+			<b>First Name*:</b><input type="text" name="first_name" required value="{{data.first_name}}"
+			class="form-control" style="width: 500px;"><br/><br>
+
+			<b>Last Name:</b><input type="text" name="last_name" value="{{data.last_name}}"
+			class="form-control" style="width: 500px;"><br/><br>
+
+			<b>Email*:</b><input type="email" name="email" required value="{{data.email}}"
+			class="form-control" style="width: 500px;"><br/><br>
+
+			<b>Password*:</b><input type="password" name="password" required value="{{data.password}}"
+			class="form-control" style="width: 500px;"><br/><br>
+
+			<b>Confirm Password*:</b><input type="password" name="confirm_password" required 
+			value="{{data.confirm_password}}" class="form-control" style="width: 500px;"><br/><br>
+
 			<input type="text" name="ip_address" hidden="true" id="ipaddress">
 
 			{% if registered_count_three %}
