@@ -4,9 +4,24 @@ from .models import UserDetail
 from django.contrib import messages
 from django.urls import reverse
 from datetime import date
+import urllib
+import json
+from django.conf import settings
 # Create your views here.
 
 def index(request):
+
+	recaptcha_response = request.POST.get('g-recaptcha-response')
+	url = 'https://www.google.com/recaptcha/api/siteverify'
+	values = {
+        'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+        'response': recaptcha_response
+	}
+	data = urllib.parse.urlencode(values).encode()
+	req =  urllib.request.Request(url, data=data)
+	response = urllib.request.urlopen(req)
+	result = json.loads(response.read().decode())
+
 	if request.method=="POST":
 		first_name = request.POST["first_name"]
 		last_name = request.POST.get("last_name")
@@ -27,13 +42,17 @@ def index(request):
 
 
 		try:
+			registered_count_three = False
 			date_today = date.today()
 			ip_address_record = list(UserDetail.objects.filter(ip_address=ip_address, date_created=date_today))
-			if len(ip_address_record)>3:
-				print("More than 3 times")
-			else:
-				print("All fine")
-				
+			if len(ip_address_record)>=3 and not result['success']:
+				registered_count_three = True
+				data={"first_name": first_name, "last_name": last_name,
+				"email": email, "password": password, "confirm_password": confirm_password}
+				return render(request,"index.html", {"registered_count_three":registered_count_three,
+					"data": data,
+					})
+			
 			UserDetail.objects.get_or_create(first_name=first_name, last_name=last_name,
 				email=email, password=password, ip_address=ip_address, date_created=date_today)
 		except Exception as e:

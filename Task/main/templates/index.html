@@ -2,36 +2,50 @@
 <html>
 <head>
 	<title>User Registration</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 	<form method="post">
 		{% csrf_token %}
 		<center>
 			{% if messages %}
-			  	<ul class="messages">
-				    {% for message in messages %}
-				      <li class="{{ message.tags }}">{{ message }}</li>
-				    {% endfor %}
-			    </ul>
+			  	{% for message in messages %}
+				  	<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+				    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				      	<span aria-hidden="true">&times;</span>
+				    </button>
+				    {{ message }}
+				  </div>
+				{% endfor %}
 			{% endif %}
-			<h2>User Registration Form</h2><br/>
-			<b>First Name*: </b><input type="text" name="first_name" required><br/>
-			<b>Last Name: </b><input type="text" name="last_name"><br/>
-			<b>Email*: </b><input type="email" name="email" required><br/>
-			<b>Password*: </b><input type="password" name="password" required><br/>
-			<b>Confirm Password*: </b><input type="password" name="confirm_password" required><br/>
+			<h2>User Registration Form</h2><br/><br>
+			<b>First Name*: </b><input type="text" name="first_name" required value="{{data.first_name}}"><br/><br>
+			<b>Last Name: </b><input type="text" name="last_name" value="{{data.last_name}}"><br/><br>
+			<b>Email*: </b><input type="email" name="email" required value="{{data.email}}"><br/><br>
+			<b>Password*: </b><input type="password" name="password" required value="{{data.password}}"><br/><br>
+			<b>Confirm Password*: </b><input type="password" name="confirm_password" required 
+			value="{{data.confirm_password}}"><br/><br>
 			<input type="text" name="ip_address" hidden="true" id="ipaddress">
-			<input type="submit" name="Registration" value="Submit">
+
+			{% if registered_count_three %}
+				<div class="g-recaptcha" data-sitekey=""></div>
+			{% endif %}
+
+			<button class="btn btn-success" type="submit" name="Registration">Submit</button>
 		</center>
 	</form>
 </body>
 <script> 
-        $.getJSON("https://api.ipify.org?format=json", 
-                                          function(data) { 
-  
-            // Setting text of element P with id gfg 
-            $("#ipaddress").val(data.ip); 
-        }) 
-    </script> 
+    $.getJSON("https://api.ipify.org?format=json", 
+                                      function(data) { 
+
+        $("#ipaddress").val(data.ip); 
+    }) 
+</script> 
 </html>
