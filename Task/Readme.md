@@ -11,12 +11,6 @@
 >
 > Assign site key to 'data-sitekey' in main/index.html line #46
 
-
-## Requirements.txt:
-
-Install the requirements using:
-> pip install -r requirements.text
-
 Run <b>python manage.py makemigrations</b> for model changes(if any).
 
 Run <b>python manage.py migrate</b> for migrating the changes
