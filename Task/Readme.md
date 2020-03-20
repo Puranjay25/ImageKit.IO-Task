@@ -7,9 +7,9 @@
 >
 > Enter domain name as 127.0.0.1
 >
-> Assign Secret key to 'GOOGLE_RECAPTCHA_SECRET_KEY' in Task/settings.py line #
+> Assign Secret key to 'GOOGLE_RECAPTCHA_SECRET_KEY' in Task/settings.py line #132
 >
-> Assign site key to 'data-sitekey' in main/index.html line #
+> Assign site key to 'data-sitekey' in main/index.html line #46
 
 
 ## Requirements.txt:
